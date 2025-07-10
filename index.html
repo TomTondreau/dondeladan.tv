@@ -3,20 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Sitio Básico de GitHub Pages</title>
+    <title>DONDELADAN.TV - ¿Dónde ver tus películas y series?</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Bienvenido a Mi Sitio</h1>
+        <div class="container">
+            <h1>DONDELADAN.TV</h1>
+            <nav>
+                <a href="#">Películas</a>
+                <a href="#">Series</a>
+                <a href="#">Plataformas</a>
+            </nav>
+        </div>
     </header>
+
     <main>
-        <p>Este es un sitio web básico creado para GitHub Pages.</p>
-        <button id="myButton">Haz clic aquí</button>
+        <section class="hero">
+            <div class="container">
+                <h2>Encuentra dónde ver tus películas y series favoritas</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Busca una película o serie...">
+                    <button id="searchButton">Buscar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-section container">
+            <h3>Resultados Populares (Mockup)</h3>
+            <div class="results-grid" id="resultsGrid">
+                <!-- Movie/Series Cards will be injected here by JavaScript or hardcoded -->
+                <div class="card" data-title="Pelicula Ejemplo 1" data-description="Una emocionante aventura llena de acción y misterio." data-platforms="Netflix, HBO Max">
+                    <img src="https://via.placeholder.com/150x220?text=Pelicula+1" alt="Pelicula Ejemplo 1">
+                    <h4>Pelicula Ejemplo 1</h4>
+                    <p>Disponible en: Netflix, HBO Max</p>
+                </div>
+                <div class="card" data-title="Serie Ejemplo 1" data-description="Una serie dramática que explora las complejidades de la vida moderna." data-platforms="Amazon Prime Video, Disney+">
+                    <img src="https://via.placeholder.com/150x220?text=Serie+1" alt="Serie Ejemplo 1">
+                    <h4>Serie Ejemplo 1</h4>
+                    <p>Disponible en: Amazon Prime Video, Disney+</p>
+                </div>
+                <div class="card" data-title="Pelicula Ejemplo 2" data-description="Una comedia romántica que te hará reír y llorar." data-platforms="Netflix, Apple TV+">
+                    <img src="https://via.placeholder.com/150x220?text=Pelicula+2" alt="Pelicula Ejemplo 2">
+                    <h4>Pelicula Ejemplo 2</h4>
+                    <p>Disponible en: Netflix, Apple TV+</p>
+                </div>
+                <div class="card" data-title="Serie Ejemplo 2" data-description="Un thriller psicológico que te mantendrá al borde de tu asiento." data-platforms="HBO Max, Paramount+">
+                    <img src="https://via.placeholder.com/150x220?text=Serie+2" alt="Serie Ejemplo 2">
+                    <h4>Serie Ejemplo 2</h4>
+                    <p>Disponible en: HBO Max, Paramount+</p>
+                </div>
+            </div>
+        </section>
     </main>
+
     <footer>
-        <p>&copy; 2025 Mi Sitio</p>
+        <div class="container">
+            <p>&copy; 2025 DONDELADAN.TV - Mockup</p>
+        </div>
     </footer>
+
+    <!-- Modal Structure -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modalTitle"></h3>
+            <img id="modalImage" src="" alt="">
+            <p id="modalDescription"></p>
+            <p id="modalPlatforms"></p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
