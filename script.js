@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     searchButton.addEventListener('click', function() {
         const query = searchInput.value.trim();
         if (query) {
-            alert(`Buscando: ${query}\n(Esta es una función de mockup. No hay resultados reales.)`);
-            // In a real app, you would fetch data here
+            const googleSearchUrl = `https://www.google.com/search?q=dónde+ver+${encodeURIComponent(query)}+películas+series+streaming`;
+            window.open(googleSearchUrl, '_blank');
         } else {
             alert('Por favor, ingresa algo para buscar.');
         }
