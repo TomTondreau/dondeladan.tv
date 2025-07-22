@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to get the bearer token
     async function getBearerToken() {
+        console.log('Attempting to get bearer token...');
         try {
             const response = await fetch(`${THE_TVDB_BASE_URL}/login`, {
                 method: 'POST',
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (!response.ok) {
+                console.error(`HTTP error during token acquisition! Status: ${response.status}`);
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
@@ -43,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to perform the search
     async function performSearch(query) {
+        console.log(`Performing search for: ${query}`);
         if (!bearerToken) {
             console.log('No bearer token available, attempting to get one...');
             const token = await getBearerToken();
@@ -61,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (!response.ok) {
+                console.error(`HTTP error during search! Status: ${response.status}`);
                 // If token expired or invalid, try to get a new one and retry the search
                 if (response.status === 401) { // Unauthorized
                     console.log('Token expired or invalid, attempting to refresh...');
@@ -76,8 +80,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const data = await response.json();
-            console.log('Search results:', data);
-            displayResults(data.data.results); // Assuming results are in data.data.results
+            console.log('Raw API search response:', data);
+            // Check if data.data.results exists and is an array
+            if (data && data.data && Array.isArray(data.data.results)) {
+                console.log('Results found in data.data.results:', data.data.results);
+                displayResults(data.data.results);
+            } else {
+                console.warn('API response did not contain expected results array at data.data.results:', data);
+                displayResults([]); // Show no results
+            }
         } catch (error) {
             console.error('Error performing search:', error);
             alert('Error al realizar la búsqueda. Por favor, inténtalo de nuevo más tarde.');
@@ -86,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to display search results
     function displayResults(results) {
+        console.log('Displaying results. Received:', results);
         resultsGrid.innerHTML = ''; // Clear previous results
 
         if (!results || results.length === 0) {
@@ -101,7 +113,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.dataset.description = item.overview || 'No description available.'; // 'overview' for description
                 card.dataset.platforms = 'Información de plataformas no disponible directamente en la búsqueda.'; // Placeholder for now
 
-                const imageUrl = item.image_url || 'https://via.placeholder.com/150x220?text=No+Image';
+                // TheTVDB image URLs often need a base path. Let's assume a common one for now.
+                // You might need to adjust this based on actual API response for image paths.
+                const imageUrl = item.image_url ? `https://artworks.thetvdb.com/banners/${item.image_url}` : 'https://via.placeholder.com/150x220?text=No+Image';
 
                 card.innerHTML = `
                     <img src="${imageUrl}" alt="${item.name}">
